@@ -1,7 +1,7 @@
 #--------- Flask settings
 SERVER_HOST = '0.0.0.0' # Update this for the appropriate front-end website when up
-SERVER_PORT = 5050
-FLASK_DEBUG = False # Do not use debug mode in prod
+SERVER_PORT = 5005
+FLASK_DEBUG = True # Do not use debug mode in prod
 
 # Flask-Restplus settings
 SWAGGER_UI_DOC_EXPANSION = 'list'
