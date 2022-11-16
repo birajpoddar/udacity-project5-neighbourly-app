@@ -128,3 +128,9 @@ obj
 appsettings.json
 local.settings.json
 .python_packages
+
+# Environment Files
+*.env
+
+# Kubernetes Deploy folder
+.kubernetes

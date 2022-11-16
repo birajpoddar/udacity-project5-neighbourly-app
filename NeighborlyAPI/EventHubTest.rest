@@ -1,0 +1,7 @@
+POST https://prod-20.centralus.logic.azure.com:443/workflows/4eefefcf30c443fb905d7498feac0d4b/triggers/manual/paths/invoke?api-version=2016-10-01&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=cgZY049nvMVMMJfHYdYLmYPMInMY0W4TTsGUFVvrnlo
+Content-Type: application/json
+
+{
+    "message": "Hello from VS Code - {{$randomInt 10 100000}}",
+    "generator": "VS Code"
+}
