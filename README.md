@@ -1,5 +1,7 @@
 # Deploying the Neighborly App with Azure Functions
 
+[![FunctionApp](https://img.shields.io/website?label=FunctionApp&logo=netlify&logoColor=green&style=for-the-badge&up_color=green&url=https%3A%2F%2Fneighbourlyappfunction.azurewebsites.net%2F)](https://neighbourlyappfunction.azurewebsites.net/) [![WebApp](https://img.shields.io/website?label=WebApp&logo=netlify&logoColor=blue&style=for-the-badge&up_color=blue&url=https%3A%2F%2Fneighbourlyappfrontend.azurewebsites.net%2F)](https://neighbourlyappfrontend.azurewebsites.net/) [![Kubernetes-FunctionApp](https://img.shields.io/website?label=Kubernetes-FunctionApp&logo=netlify&logoColor=orange&style=for-the-badge&up_color=orange&url=http%3A%2F%2F52.152.60.4%2F)](http://52.152.60.4/)
+
 ## Project Overview
 
 For the final project, we are going to build an app called "Neighborly". Neighborly is a Python Flask-powered web application that allows neighbors to post advertisements for services and products they can offer.
@@ -31,7 +33,7 @@ brew install pipenv
 # install azure-cli
 brew update && brew install azure-cli
 
-# install azure function core tools 
+# install azure function core tools
 brew tap azure/functions
 brew install azure-functions-core-tools@3
 ```
@@ -46,160 +48,168 @@ We need to set up the Azure resource group, region, storage account, and an app 
 
 1. Create a resource group.
 2. Create a storage account (within the previously created resource group and region).
-3. Create an Azure Function App within the resource group, region and storage account. 
+3. Create an Azure Function App within the resource group, region and storage account.
+
    - Note that app names need to be unique across all of Azure.
    - Make sure it is a Linux app, with a Python runtime.
 
-    Example of successful output, if creating the app `myneighborlyapiv1`:
+   Example of successful output, if creating the app `myneighborlyapiv1`:
 
-    ```bash
-    Your Linux function app 'myneighborlyapiv1', that uses a consumption plan has been successfully created but is not active until content is published using Azure Portal or the Functions Core Tools.
-    ```
+   ```bash
+   Your Linux function app 'myneighborlyapiv1', that uses a consumption plan has been successfully created but is not active until content is published using Azure Portal or the Functions Core Tools.
+   ```
 
 4. Set up a Cosmos DB Account. You will need to use the same resource group, region and storage account, but can name the Cosmos DB account as you prefer. **Note:** This step may take a little while to complete (15-20 minutes in some cases).
 
 5. Create a MongoDB Database in CosmosDB Azure and two collections, one for `advertisements` and one for `posts`.
-6. Print out your connection string or get it from the Azure Portal. Copy/paste the **primary connection** string.  You will use it later in your application.
+6. Print out your connection string or get it from the Azure Portal. Copy/paste the **primary connection** string. You will use it later in your application.
 
-    Example connection string output:
-    ```bash
-    bash-3.2$ Listing connection strings from COSMOS_ACCOUNT:
-    + az cosmosdb keys list -n neighborlycosmos -g neighborlyapp --type connection-strings
-    {
-    "connectionStrings": [
-        {
-        "connectionString": "AccountEndpoint=https://neighborlycosmos.documents.azure.com:443/;AccountKey=xxxxxxxxxxxx;",
-        "description": "Primary SQL Connection String"
-        },
-        {
-        "connectionString": "AccountEndpoint=https://neighborlycosmos.documents.azure.com:443/;AccountKey=xxxxxxxxxxxxx;",
-        "description": "Secondary SQL Connection String"
-        } 
-        
-        ... [other code omitted]
-    ]
-    }
-    ```
+   Example connection string output:
+
+   ```bash
+   bash-3.2$ Listing connection strings from COSMOS_ACCOUNT:
+   + az cosmosdb keys list -n neighborlycosmos -g neighborlyapp --type connection-strings
+   {
+   "connectionStrings": [
+       {
+       "connectionString": "AccountEndpoint=https://neighborlycosmos.documents.azure.com:443/;AccountKey=xxxxxxxxxxxx;",
+       "description": "Primary SQL Connection String"
+       },
+       {
+       "connectionString": "AccountEndpoint=https://neighborlycosmos.documents.azure.com:443/;AccountKey=xxxxxxxxxxxxx;",
+       "description": "Secondary SQL Connection String"
+       }
+
+       ... [other code omitted]
+   ]
+   }
+   ```
 
 7. Import Sample Data Into MongoDB.
+
    - Download dependencies:
-        ```bash
-        # get the mongodb library
-        brew install mongodb-community@4.2
 
-        # check if mongoimport lib exists
-        mongoimport --version
-        ```
+     ```bash
+     # get the mongodb library
+     brew install mongodb-community@4.2
 
-    - Import the data from the `sample_data` directory for Ads and Posts to initially fill your app.
+     # check if mongoimport lib exists
+     mongoimport --version
+     ```
 
-        Example successful import:
-        ```
-        Importing ads data ------------------->
-        2020-05-18T23:30:39.018-0400  connected to: mongodb://neighborlyapp.mongo.cosmos.azure.com:10255/
-        2020-05-18T23:30:40.344-0400  5 document(s) imported successfully. 0 document(s) failed to import.
-        ...
-        Importing posts data ------------------->
-        2020-05-18T23:30:40.933-0400  connected to: mongodb://neighborlyapp.mongo.cosmos.azure.com:10255/
-        2020-05-18T23:30:42.260-0400  4 document(s) imported successfully. 0 document(s) failed to import.
-        ```
+   - Import the data from the `sample_data` directory for Ads and Posts to initially fill your app.
 
-8. Hook up your connection string into the NeighborlyAPI server folder. You will need to replace the *url* variable with your own connection string you copy-and-pasted in the last step, along with some additional information.
-    - Tip: Check out [this post](https://docs.microsoft.com/en-us/azure/cosmos-db/connect-mongodb-account) if you need help with what information is needed.
-    - Go to each of the `__init__.py` files in getPosts, getPost, getAdvertisements, getAdvertisement, deleteAdvertisement, updateAdvertisement, createAdvertisements and replace your connection string. You will also need to set the related `database` and `collection` appropriately.
+     Example successful import:
 
-    ```bash
-    # inside getAdvertisements/__init__.py
+     ```
+     Importing ads data ------------------->
+     2020-05-18T23:30:39.018-0400  connected to: mongodb://neighborlyapp.mongo.cosmos.azure.com:10255/
+     2020-05-18T23:30:40.344-0400  5 document(s) imported successfully. 0 document(s) failed to import.
+     ...
+     Importing posts data ------------------->
+     2020-05-18T23:30:40.933-0400  connected to: mongodb://neighborlyapp.mongo.cosmos.azure.com:10255/
+     2020-05-18T23:30:42.260-0400  4 document(s) imported successfully. 0 document(s) failed to import.
+     ```
 
-    def main(req: func.HttpRequest) -> func.HttpResponse:
-        logging.info('Python getAdvertisements trigger function processed a request.')
+8. Hook up your connection string into the NeighborlyAPI server folder. You will need to replace the _url_ variable with your own connection string you copy-and-pasted in the last step, along with some additional information.
 
-        try:
-            # copy/paste your primary connection url here
-            #-------------------------------------------
-            url = ""
-            #--------------------------------------------
+   - Tip: Check out [this post](https://docs.microsoft.com/en-us/azure/cosmos-db/connect-mongodb-account) if you need help with what information is needed.
+   - Go to each of the `__init__.py` files in getPosts, getPost, getAdvertisements, getAdvertisement, deleteAdvertisement, updateAdvertisement, createAdvertisements and replace your connection string. You will also need to set the related `database` and `collection` appropriately.
 
-            client=pymongo.MongoClient(url)
+   ```bash
+   # inside getAdvertisements/__init__.py
 
-            database = None # Feed the correct key for the database name to the client
-            collection = None # Feed the correct key for the collection name to the database
+   def main(req: func.HttpRequest) -> func.HttpResponse:
+       logging.info('Python getAdvertisements trigger function processed a request.')
 
-            ... [other code omitted]
-            
-    ```
+       try:
+           # copy/paste your primary connection url here
+           #-------------------------------------------
+           url = ""
+           #--------------------------------------------
 
-    Make sure to do the same step for the other 6 HTTP Trigger functions.
+           client=pymongo.MongoClient(url)
+
+           database = None # Feed the correct key for the database name to the client
+           collection = None # Feed the correct key for the collection name to the database
+
+           ... [other code omitted]
+
+   ```
+
+   Make sure to do the same step for the other 6 HTTP Trigger functions.
 
 9. Deploy your Azure Functions.
 
-    1. Test it out locally first.
+   1. Test it out locally first.
 
-        ```bash
-        # cd into NeighborlyAPI
-        cd NeighborlyAPI
+      ```bash
+      # cd into NeighborlyAPI
+      cd NeighborlyAPI
 
-        # install dependencies
-        pipenv install
+      # install dependencies
+      pipenv install
 
-        # go into the shell
-        pipenv shell
+      # go into the shell
+      pipenv shell
 
-        # test func locally
-        func start
-        ```
+      # test func locally
+      func start
+      ```
 
-        You may need to change `"IsEncrypted"` to `false` in `local.settings.json` if this fails.
+      You may need to change `"IsEncrypted"` to `false` in `local.settings.json` if this fails.
 
-        At this point, Azure functions are hosted in localhost:7071.  You can use the browser or Postman to see if the GET request works.  For example, go to the browser and type in: 
+      At this point, Azure functions are hosted in localhost:7071. You can use the browser or Postman to see if the GET request works. For example, go to the browser and type in:
 
-        ```bash
-        # example endpoint for all advertisements
-        http://localhost:7071/api/getadvertisements
+      ```bash
+      # example endpoint for all advertisements
+      http://localhost:7071/api/getadvertisements
 
-        #example endpoint for all posts
-        http://localhost:7071/api/getposts
-        ```
+      #example endpoint for all posts
+      http://localhost:7071/api/getposts
+      ```
 
-    2. Now you can deploy functions to Azure by publishing your function app.
+   2. Now you can deploy functions to Azure by publishing your function app.
 
-        The result may give you a live url in this format, or you can check in Azure portal for these as well:
+      The result may give you a live url in this format, or you can check in Azure portal for these as well:
 
-        Expected output if deployed successfully:
-        ```bash
-        Functions in <APP_NAME>:
-            createAdvertisement - [httpTrigger]
-                Invoke url: https://<APP_NAME>.azurewebsites.net/api/createadvertisement
+      Expected output if deployed successfully:
 
-            deleteAdvertisement - [httpTrigger]
-                Invoke url: https://<APP_NAME>.azurewebsites.net/api/deleteadvertisement
+      ```bash
+      Functions in <APP_NAME>:
+          createAdvertisement - [httpTrigger]
+              Invoke url: https://<APP_NAME>.azurewebsites.net/api/createadvertisement
 
-            getAdvertisement - [httpTrigger]
-                Invoke url: https://<APP_NAME>.azurewebsites.net/api/getadvertisement
+          deleteAdvertisement - [httpTrigger]
+              Invoke url: https://<APP_NAME>.azurewebsites.net/api/deleteadvertisement
 
-            getAdvertisements - [httpTrigger]
-                Invoke url: https://<APP_NAME>.azurewebsites.net/api/getadvertisements
+          getAdvertisement - [httpTrigger]
+              Invoke url: https://<APP_NAME>.azurewebsites.net/api/getadvertisement
 
-            getPost - [httpTrigger]
-                Invoke url: https://<APP_NAME>.azurewebsites.net/api/getpost
+          getAdvertisements - [httpTrigger]
+              Invoke url: https://<APP_NAME>.azurewebsites.net/api/getadvertisements
 
-            getPosts - [httpTrigger]
-                Invoke url: https://<APP_NAME>.azurewebsites.net/api/getposts
+          getPost - [httpTrigger]
+              Invoke url: https://<APP_NAME>.azurewebsites.net/api/getpost
 
-            updateAdvertisement - [httpTrigger]
-                Invoke url: https://<APP_NAME>.azurewebsites.net/api/updateadvertisement
+          getPosts - [httpTrigger]
+              Invoke url: https://<APP_NAME>.azurewebsites.net/api/getposts
 
-        ```
+          updateAdvertisement - [httpTrigger]
+              Invoke url: https://<APP_NAME>.azurewebsites.net/api/updateadvertisement
 
-        **Note:** It may take a minute or two for the endpoints to get up and running if you visit the URLs.
+      ```
 
-        Save the function app url **https://<APP_NAME>.azurewebsites.net/api/** since you will need to update that in the client-side of the application.
+      **Note:** It may take a minute or two for the endpoints to get up and running if you visit the URLs.
+
+      Save the function app url **https://<APP_NAME>.azurewebsites.net/api/** since you will need to update that in the client-side of the application.
 
 ### II. Deploying the client-side Flask web application
 
 We are going to update the Client-side `settings.py` with published API endpoints. First navigate to the `settings.py` file in the NeighborlyFrontEnd/ directory.
 
 Use a text editor to update the API_URL to your published url from the last step.
+
 ```bash
 # Inside file settings.py
 
@@ -207,18 +217,19 @@ Use a text editor to update the API_URL to your published url from the last step
 #API_URL = "http://localhost:7071/api"
 
 # ------- For production -------
-# where APP_NAME is your Azure Function App name 
+# where APP_NAME is your Azure Function App name
 API_URL="https://<APP_NAME>.azurewebsites.net/api"
 ```
 
 ### III. CI/CD Deployment
 
 1. Deploy your client app. **Note:** Use a **different** app name here to deploy the front-end, or else you will erase your API. From within the `NeighborlyFrontEnd` directory:
-    - Install dependencies with `pipenv install`
-    - Go into the pip env shell with `pipenv shell`
-    - Deploy your application to the app service. **Note:** It may take a minute or two for the front-end to get up and running if you visit the related URL.
 
-    Make sure to also provide any necessary information in `settings.py` to move from localhost to your deployment.
+   - Install dependencies with `pipenv install`
+   - Go into the pip env shell with `pipenv shell`
+   - Deploy your application to the app service. **Note:** It may take a minute or two for the front-end to get up and running if you visit the related URL.
+
+   Make sure to also provide any necessary information in `settings.py` to move from localhost to your deployment.
 
 2. Create an Azure Registry and dockerize your Azure Functions. Then, push the container to the Azure Container Registry.
 3. Create a Kubernetes cluster, and verify your connection to it with `kubectl get nodes`.
@@ -230,7 +241,7 @@ API_URL="https://<APP_NAME>.azurewebsites.net/api"
 2. Create a namespace for event hub in the portal. You should be able to obtain the namespace URL.
 3. Add the connection string of the event hub to the Azure Function.
 
-### V.  Cleaning Up Your Services
+### V. Cleaning Up Your Services
 
 Before completing this step, make sure to have taken all necessary screenshots for the project! Check the rubric in the classroom to confirm.
 
