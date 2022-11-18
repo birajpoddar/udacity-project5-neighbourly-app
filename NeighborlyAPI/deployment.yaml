@@ -1,0 +1,167 @@
+data:
+  APPINSIGHTS_INSTRUMENTATIONKEY: YWI3NzQyOTktYWZhNS00MDBjLWEwZjAtZjVlYjExMjBiMDNh
+  APPLICATIONINSIGHTS_CONNECTION_STRING: SW5zdHJ1bWVudGF0aW9uS2V5PWFiNzc0Mjk5LWFmYTUtNDAwYy1hMGYwLWY1ZWIxMTIwYjAzYTtJbmdlc3Rpb25FbmRwb2ludD1odHRwczovL3NvdXRoY2VudHJhbHVzLTMuaW4uYXBwbGljYXRpb25pbnNpZ2h0cy5henVyZS5jb20vO0xpdmVFbmRwb2ludD1odHRwczovL3NvdXRoY2VudHJhbHVzLmxpdmVkaWFnbm9zdGljcy5tb25pdG9yLmF6dXJlLmNvbS8=
+  FUNCTIONS_EXTENSION_VERSION: fjQ=
+  FUNCTIONS_WORKER_RUNTIME: cHl0aG9u
+  WEBSITE_CONTENTAZUREFILECONNECTIONSTRING: RGVmYXVsdEVuZHBvaW50c1Byb3RvY29sPWh0dHBzO0FjY291bnROYW1lPW5laWdoYm9ybHlhcHBzdG9yYWdlO0FjY291bnRLZXk9bkdDYXpwUTRJUHhUdGU1ME1JcWdiMTdsUXhSc3dwSisrVzBwNzlYQVFIOVpPRnA3em0reDgzcElyKzRGQWxxRE1yY3pERDRwUXJUNStBU3ROWTFhdWc9PTtFbmRwb2ludFN1ZmZpeD1jb3JlLndpbmRvd3MubmV0
+  WEBSITE_CONTENTSHARE: bmVpZ2hib3VybHlhcHBmdW5jdGlvbjhhZjk=
+  AzureWebJobsStorage: RGVmYXVsdEVuZHBvaW50c1Byb3RvY29sPWh0dHBzO0FjY291bnROYW1lPW5laWdoYm9ybHlhcHBzdG9yYWdlO0FjY291bnRLZXk9bkdDYXpwUTRJUHhUdGU1ME1JcWdiMTdsUXhSc3dwSisrVzBwNzlYQVFIOVpPRnA3em0reDgzcElyKzRGQWxxRE1yY3pERDRwUXJUNStBU3ROWTFhdWc9PTtFbmRwb2ludFN1ZmZpeD1jb3JlLndpbmRvd3MubmV0
+  MongoConnStr: bW9uZ29kYjovL25laWdoYm91cmx5YXBwbW9uZ29kYjo0V1ZBNzZtM2hDMmg2Ulo3SzJoYVIzZGlJZ0NzbTdncnZEdGx2VWxIWDRaN1lVRGFrTjZCd2VCSW1sbE9iUjhqYmdmeXhvZ1l6UVRpQUNEYnZKTlhuZz09QG5laWdoYm91cmx5YXBwbW9uZ29kYi5tb25nby5jb3Ntb3MuYXp1cmUuY29tOjEwMjU1Lz9zc2w9dHJ1ZSZyZXBsaWNhU2V0PWdsb2JhbGRiJnJldHJ5d3JpdGVzPWZhbHNlJm1heElkbGVUaW1lTVM9MTIwMDAwJmFwcE5hbWU9QG5laWdoYm91cmx5YXBwbW9uZ29kYkA=
+  ServiceBusEndpoint: RW5kcG9pbnQ9c2I6Ly9uZWlnaGJvcmx5YXBwYnVzLnNlcnZpY2VidXMud2luZG93cy5uZXQvO1NoYXJlZEFjY2Vzc0tleU5hbWU9YWxscG9saWN5O1NoYXJlZEFjY2Vzc0tleT14WTh6YytoMFhZZXZ4aENRdXhCYnFOd2VZMnRBNE1EaFRhZ3FWT09tZGxVPTtFbnRpdHlQYXRoPXRlc3RodWI=
+apiVersion: v1
+kind: Secret
+metadata:
+  name: neighborlyappapi
+---
+data:
+  host.master: OWxwdjVJVUtvMzBWUWFjOUItYk54Ynp4VThEanB0cm9CcUVYVlhwMkdwN0pBekZ1Q1M2X2ZRPT0=
+  host.function.default: YkJZa1pYRzBrSElia0l2QjhJb25BRGRvV0tPZ2ZVWTQtMHlpSDcxcDZOS3NBekZ1eFR0d1B3PT0=
+  host.systemKey.default: MUpmY0JTbmZwem9LbWxRWDN1cmIzTnBXOWN6QTUwU3NVRGZIbTlVYjJFbHVBekZ1VUs2YnJRPT0=
+  functions.deleteadvertisement.default: MnNKcDlBdVZCN1l2MzYyQkwxSGx0OGpBU292c3g2SXQzU2M1b2hPd1d6X0RBekZ1VVFfQTdBPT0=
+  functions.getpost.default: eWpvTkstcDhDSVdIM3dvMXR0N0NISDhrNjZYRkpENzhNdEdDSG1ZYy1uc1pBekZ1Y2xUUllnPT0=
+  functions.getadvertisement.default: Nmx3Q0VCVGdYdWd0a3JubXBnWnFzbi1NaUxheHYySExFbUxJbFdxMVJPWGNBekZ1MUFRWjJRPT0=
+  functions.createadvertisement.default: WXY5b2dFOHNnU2ZxZ2JtSzFQY1J0czVoRTFoTl9SSXRMaHpqVzRKNmVmdUhBekZ1dVotRGNBPT0=
+  functions.getadvertisements.default: QjhSbnFDWEdoM2xsWjViVjMzU0hsemNuQzRxT19IQW1VYlRUeFgzbmFRcE1BekZ1Z1RuaWxnPT0=
+  functions.updateadvertisement.default: eGw2VHgyRGs0Rk11Tl9mNTZ1M25LUXhfZGdkR0dHT0x1QmNQOFIyeC1qTTNBekZ1emstb293PT0=
+  functions.getposts.default: X04yZ1VrQ2Rnem9PNDB6emZUenVfQlcwTW42eEdLOE1MRk1OS2tEOGpUQW9BekZ1RlRNVTVBPT0=
+apiVersion: v1
+kind: Secret
+metadata:
+  name: func-keys-kube-secret-neighborlyappapi
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: neighborlyappapi-function-keys-identity-svc-act
+---
+rules:
+  - apiGroups:
+      - ''
+    resources:
+      - secrets
+      - configMaps
+    verbs:
+      - get
+      - list
+      - watch
+      - create
+      - update
+      - patch
+      - delete
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: functions-keys-manager-role
+---
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: functions-keys-manager-role
+subjects:
+  - kind: ServiceAccount
+    name: neighborlyappapi-function-keys-identity-svc-act
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: neighborlyappapi-function-keys-identity-svc-act-functions-keys-manager-rolebinding
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: neighborlyappapi-http
+spec:
+  selector:
+    app: neighborlyappapi-http
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+  type: LoadBalancer
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neighborlyappapi-http
+  labels:
+    app: neighborlyappapi-http
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: neighborlyappapi-http
+  template:
+    metadata:
+      labels:
+        app: neighborlyappapi-http
+    spec:
+      containers:
+        - name: neighborlyappapi-http
+          image: neighborlyappregistry.azurecr.io/neighborlyappapi:latest
+          ports:
+            - containerPort: 80
+          env:
+            - name: AzureFunctionsJobHost__functions__0
+              value: deleteAdvertisement
+            - name: AzureFunctionsJobHost__functions__1
+              value: getPost
+            - name: AzureFunctionsJobHost__functions__2
+              value: getAdvertisement
+            - name: AzureFunctionsJobHost__functions__3
+              value: createAdvertisement
+            - name: AzureFunctionsJobHost__functions__4
+              value: getAdvertisements
+            - name: AzureFunctionsJobHost__functions__5
+              value: updateAdvertisement
+            - name: AzureFunctionsJobHost__functions__6
+              value: getPosts
+            - name: AzureWebJobsSecretStorageType
+              value: kubernetes
+            - name: AzureWebJobsKubernetesSecretName
+              value: secrets/func-keys-kube-secret-neighborlyappapi
+          envFrom:
+            - secretRef:
+                name: neighborlyappapi
+      serviceAccountName: neighborlyappapi-function-keys-identity-svc-act
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: neighborlyappapi
+  labels:
+    app: neighborlyappapi
+spec:
+  selector:
+    matchLabels:
+      app: neighborlyappapi
+  template:
+    metadata:
+      labels:
+        app: neighborlyappapi
+    spec:
+      containers:
+        - name: neighborlyappapi
+          image: neighborlyappregistry.azurecr.io/neighborlyappapi:latest
+          env:
+            - name: AzureFunctionsJobHost__functions__0
+              value: eventHubTrigger
+          envFrom:
+            - secretRef:
+                name: neighborlyappapi
+      serviceAccountName: neighborlyappapi-function-keys-identity-svc-act
+---
+apiVersion: keda.sh/v1alpha1
+kind: ScaledObject
+metadata:
+  name: neighborlyappapi
+  labels: {}
+spec:
+  scaleTargetRef:
+    name: neighborlyappapi
+  triggers:
+    - type: eventgridtrigger
+      metadata:
+        direction: in
+        eventHubName: testhub
+        connection: ServiceBusEndpoint
+---
+
